@@ -19,7 +19,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/prometheus-community/fortigate_exporter/pkg/http"
+	"github.com/prometheus-community/fortigate_exporter/pkg/fortigatehttpclient"
 )
 
 type BGPNeighbor7_4 struct {
@@ -36,7 +36,7 @@ type BGPNeighborResponse7_4 struct {
 	Version string           `json:"version"`
 }
 
-func probeBGPNeighborsIPv47_4(c http.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
+func probeBGPNeighborsIPv47_4(c fortigatehttpclient.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
 	if meta.VersionMajor < 7 {
 		// not supported version. Before 7.0.0 the requested endpoint doesn't exist
 		return nil, true
@@ -65,7 +65,7 @@ func probeBGPNeighborsIPv47_4(c http.FortiHTTP, meta *TargetMetadata) ([]prometh
 	return m, true
 }
 
-func probeBGPNeighborsIPv67_4(c http.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
+func probeBGPNeighborsIPv67_4(c fortigatehttpclient.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
 	if meta.VersionMajor < 7 {
 		// not supported version. Before 7.0.0 the requested endpoint doesn't exist
 		return nil, true
@@ -128,7 +128,7 @@ type BGPNeighborResponse struct {
 	Version string        `json:"version"`
 }
 
-func probeBGPNeighborsIPv4(c http.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
+func probeBGPNeighborsIPv4(c fortigatehttpclient.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
 	if meta.VersionMajor == 7 && meta.VersionMinor < 6 {
 		return probeBGPNeighborsIPv47_4(c, meta)
 	}
@@ -179,7 +179,7 @@ func probeBGPNeighborsIPv4(c http.FortiHTTP, meta *TargetMetadata) ([]prometheus
 	return m, true
 }
 
-func probeBGPNeighborsIPv6(c http.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
+func probeBGPNeighborsIPv6(c fortigatehttpclient.FortiHTTP, meta *TargetMetadata) ([]prometheus.Metric, bool) {
 	if meta.VersionMajor == 7 && meta.VersionMinor < 6 {
 		return probeBGPNeighborsIPv67_4(c, meta)
 	}

@@ -19,10 +19,10 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/prometheus-community/fortigate_exporter/pkg/http"
+	"github.com/prometheus-community/fortigate_exporter/pkg/fortigatehttpclient"
 )
 
-func probeSystemGlobalLocation(c http.FortiHTTP, _ *TargetMetadata) ([]prometheus.Metric, bool) {
+func probeSystemGlobalLocation(c fortigatehttpclient.FortiHTTP, _ *TargetMetadata) ([]prometheus.Metric, bool) {
 	location := prometheus.NewDesc(
 		"fortigate_location_info",
 		"System geographic location (static metadata)",
